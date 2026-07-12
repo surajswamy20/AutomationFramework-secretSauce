@@ -17,7 +17,7 @@
 		<classes>
 
 			
-			<class name="tests.carttest" />
+			<class name="tests.cartTest" />
 			<class name = "tests.LoginPageTest"/>
 			<class name="tests.ProductTest"></class>
 			

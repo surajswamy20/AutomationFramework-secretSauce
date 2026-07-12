@@ -27,7 +27,7 @@ import utilities.driverfactory;
 import utilities.implementationOfListeners;
 
 
-public class carttest {
+public class cartTest {
 
 	WebDriver driver;
 
