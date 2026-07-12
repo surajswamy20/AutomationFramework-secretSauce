@@ -2,9 +2,27 @@
 
 ## Overview
 
-This project is a robust Selenium Automation Framework developed using Java, Selenium WebDriver, TestNG, Maven, and the Page Object Model (POM). The framework is designed to automate web application testing with a focus on maintainability, scalability, and ease of execution.
+This project is a robust Selenium Automation Framework developed using **Java, Selenium WebDriver, TestNG, Maven, and the Page Object Model (POM)**. The framework is designed to automate web application testing with a focus on maintainability, scalability, and ease of execution.
 
 It follows industry-standard automation practices by separating test logic from page objects, supporting reusable components, and integrating reporting, version control, and Continuous Integration.
+
+---
+
+# Application Under Test (AUT)
+
+The automation framework is developed and executed against the **SauceDemo** web application.
+
+**Application URL:**
+https://www.saucedemo.com/
+
+### Functional Modules Automated
+
+* Login
+* Product Listing
+* Product Selection
+* Shopping Cart
+* Checkout Flow
+* Logout (if implemented)
 
 ---
 
@@ -31,10 +49,10 @@ It follows industry-standard automation practices by separating test logic from 
 * Maven Dependency Management
 * Extent HTML Reporting
 * Screenshot Capture on Test Execution
-* Listener Implementation using TestNG
+* TestNG Listener Implementation
 * Driver Factory for Browser Initialization
 * Reusable Utility Classes
-* Data Driven Support using TestNG DataProvider
+* Data-Driven Testing using TestNG DataProvider
 * Jenkins Continuous Integration
 * Git Version Control
 * Modular and Scalable Project Structure
@@ -43,28 +61,24 @@ It follows industry-standard automation practices by separating test logic from 
 
 ## Project Structure
 
-```
+```text
 test1
 │
 ├── src
 │   ├── main
-│   │   ├── java
-│   │   │   ├── pages
-│   │   │   ├── utilities
-│   │   │   └── base
+│   │   └── java
+│   │       ├── base
+│   │       ├── pages
+│   │       └── utilities
 │   │
 │   └── test
 │       └── java
 │           └── tests
 │
 ├── reports
-│
 ├── screenshots
-│
 ├── testng.xml
-│
 ├── pom.xml
-│
 └── README.md
 ```
 
@@ -72,45 +86,45 @@ test1
 
 ## Design Pattern
 
-The framework follows the **Page Object Model (POM)**.
+The framework follows the **Page Object Model (POM)** design pattern.
 
 Each web page is represented as a separate Java class containing:
 
-* Web Elements
+* Web Elements (Locators)
 * Page Actions
 * Navigation Methods
 
-This improves:
+### Benefits
 
-* Code Reusability
-* Maintainability
-* Readability
-* Easy Object Repository Management
+* High Code Reusability
+* Easy Maintenance
+* Better Readability
+* Separation of Test Logic and UI Elements
 
 ---
 
 ## Reporting
 
-The framework generates professional HTML reports using **Extent Reports**.
+The framework generates interactive HTML reports using **Extent Reports**.
 
-Reports include:
+The report includes:
 
 * Test Name
-* Pass / Fail Status
-* Execution Details
-* Failure Reason
+* Pass/Fail Status
 * Execution Time
-* Screenshots
+* Exception Details
+* Test Logs
+* Screenshots (where implemented)
 
-Reports are automatically generated after execution.
+Reports are automatically generated after every execution.
 
 ---
 
 ## Screenshot Capture
 
-The framework captures screenshots during execution using Selenium's `TakesScreenshot` interface.
+The framework captures screenshots using Selenium's **TakesScreenshot** interface.
 
-Screenshots are stored inside the project directory and can be attached to reports for easier debugging.
+Screenshots are generated during execution and stored inside the project directory for easier debugging and reporting.
 
 ---
 
@@ -120,19 +134,19 @@ Tests can be executed using:
 
 ### TestNG
 
-```
+```bash
 Run As → TestNG Test
 ```
 
 ### Maven
 
-```
+```bash
 mvn clean test
 ```
 
 ### Jenkins
 
-```
+```text
 Build Now
 ```
 
@@ -140,11 +154,11 @@ Build Now
 
 ## Continuous Integration (CI)
 
-The framework is integrated with Jenkins.
+The framework is integrated with Jenkins for automated test execution.
 
-Execution flow:
+### CI Workflow
 
-```
+```text
 Developer / Tester
         │
         ▼
@@ -160,34 +174,32 @@ GitHub Repository
 Jenkins
         │
         ▼
-Clone Repository
+Clone Latest Code
         │
         ▼
 Maven Build
         │
         ▼
-Execute TestNG Tests
+Execute TestNG Test Suite
         │
         ▼
 Generate Extent Report
         │
         ▼
-Build Result
+Build Success / Failure
 ```
 
 ---
 
 ## Version Control
 
-The project is maintained using Git.
+Git is used for source code management.
 
 Typical workflow:
 
-```
+```bash
 git add .
-
 git commit -m "Commit Message"
-
 git push origin main
 ```
 
@@ -197,13 +209,13 @@ git push origin main
 
 * DriverFactory
 * Base Utility Classes
-* Page Classes
+* Page Object Model (POM)
 * Test Classes
 * TestNG Listeners
 * Extent Report Integration
 * Screenshot Utility
 * Maven Build Configuration
-* Jenkins CI Integration
+* Jenkins Integration
 
 ---
 
@@ -211,14 +223,14 @@ git push origin main
 
 * Config.properties Support
 * ConfigReader Utility
-* Log4j Logging
-* Browser Selection through Jenkins Parameters
+* Log4j2 Logging
+* Browser Selection using Jenkins Parameters
 * Parallel Test Execution
 * Selenium Grid Integration
 * Docker Support
+* Retry Analyzer
 * Email Notifications
 * Slack Notifications
-* Retry Analyzer
 * Database Validation
 * API Automation Integration
 * GitHub Webhook Trigger
@@ -230,9 +242,9 @@ git push origin main
 
 **Suraj Basavaraj Swamy**
 
-QA Automation Engineer
+**QA Automation Engineer**
 
-Skills:
+### Technical Skills
 
 * Selenium WebDriver
 * Java
@@ -240,7 +252,7 @@ Skills:
 * Maven
 * Jenkins
 * Git & GitHub
-* Page Object Model
-* Automation Testing
+* Page Object Model (POM)
 * Manual Testing
+* Automation Testing
 * CI/CD
