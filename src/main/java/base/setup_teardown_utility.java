@@ -7,12 +7,13 @@ import utilities.driverfactory;
 
 public class setup_teardown_utility {
 
-	public static WebDriver driver;
+	public static ThreadLocal <WebDriver> driver;
 
-	public static WebDriver setup(String br) {
+	public static ThreadLocal<WebDriver> setup(String br) {
 		String b = br;
 		driver = driverfactory.getdriver(b);
-		driver.get(resorces.url);
+		
+		driver.get().get(resorces.url);
 		return driver;
 	}
 

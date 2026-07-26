@@ -29,7 +29,7 @@ import utilities.implementationOfListeners;
 
 public class cartTest {
 
-	WebDriver driver;
+	ThreadLocal<WebDriver> driver;
 
 	@BeforeMethod(alwaysRun = true)
 	@Parameters({ "browser" })
@@ -47,7 +47,7 @@ public class cartTest {
 		cart c = new cart(driver);
 		c.clickCart();
 		// actual test starts here
-		Assert.assertEquals(driver.findElement(By.className("title")).getText(), "Your Cart", "passed");
+		Assert.assertEquals(driver.get().findElement(By.className("title")).getText(), "Your Cart", "passed");
 
 	}
 
@@ -55,7 +55,7 @@ public class cartTest {
 	void continueshoping() {
 		cart c = new cart(driver);
 		c.clickCart();
-		Assert.assertEquals(driver.findElement(By.name("continue-shopping")).getText(), "Continue Shopping", "passed");
+		Assert.assertEquals(driver.get().findElement(By.name("continue-shopping")).getText(), "Continue Shopping", "passed");
 
 	}
 
@@ -63,7 +63,7 @@ public class cartTest {
 	void checkout() {
 		cart c = new cart(driver);
 		c.clickCart();
-		Assert.assertEquals(driver.findElement(By.id("checkout")).getText(), "Checkout");
+		Assert.assertEquals(driver.get().findElement(By.id("checkout")).getText(), "Checkout");
 	}
 
 	@AfterMethod(alwaysRun = true)

@@ -9,10 +9,10 @@ import org.openqa.selenium.WebElement;
 
 public class product {
 
-	WebDriver driver;
+	ThreadLocal <WebDriver> driver;
 
 	// constructor
-	public product(WebDriver driver) {
+	public product(ThreadLocal<WebDriver> driver) {
 		this.driver = driver;
 	}
 
@@ -30,16 +30,16 @@ public class product {
 	// action methods
 
 	public String getitle() {
-		return driver.findElement(title).getText();
+		return driver.get().findElement(title).getText();
 
 	}
 
 	public String getlogo() {
-		return driver.findElement(logo).getText();
+		return driver.get().findElement(logo).getText();
 	}
 
 	public List<String> getitems() {
-		List<WebElement> a = driver.findElements(items);
+		List<WebElement> a = driver.get().findElements(items);
 		List<String> b = new ArrayList<>();
 
 		for (WebElement i : a) {
@@ -52,17 +52,17 @@ public class product {
 	}
 
 	public void additem() {
-		driver.findElement(itemadd).click();
+		driver.get().findElement(itemadd).click();
 
 	}
 
 	public void backtoshoping() {
-		driver.findElement(continueshoping).click();
+		driver.get().findElement(continueshoping).click();
 
 	}
 
 	public void clickCart() {
-		driver.findElement(cartdirection).click();
+		driver.get().findElement(cartdirection).click();
 	}
 
 }

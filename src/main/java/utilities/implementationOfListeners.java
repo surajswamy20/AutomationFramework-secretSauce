@@ -109,9 +109,9 @@ import com.aventstack.extentreports.reporter.configuration.Theme;
 
 public class implementationOfListeners implements ITestListener{
 	
-	public ExtentSparkReporter sparkreport;
-	public ExtentReports report;
-	public ExtentTest test;
+	private ThreadLocal<ExtentSparkReporter> sparkreport = new ThreadLocal<>();
+	public ThreadLocal<ExtentReports> report = new ThreadLocal<>();
+	public ThreadLocal<ExtentTest> test = new ThreadLocal<ExtentTest>();
 	
 //	public void OnStart(ITestContext context) {
 //		
@@ -119,51 +119,54 @@ public class implementationOfListeners implements ITestListener{
 	
 	public void onStart(ITestContext context) {
 	    // not implemented
-		sparkreport = new ExtentSparkReporter(System.getProperty("user.dir")+"/reports/myreprot.html");
-		sparkreport.config().setDocumentTitle("Automation-Test Lib");
-		sparkreport.config().setReportName("Testing- SecreSauce");
-		sparkreport.config().setTheme(Theme.DARK);
-		report  = new ExtentReports();
-		report.attachReporter(sparkreport);
-		report.setSystemInfo("System", "SURI");
-		report.setSystemInfo("Device", "Windows");
-		report.setSystemInfo("browser", "Chrome");
-		report.setSystemInfo("Version", "149...");		
+		String whichbrowser =context.getCurrentXmlTest().getParameter("browser");
+		sparkreport.set( new ExtentSparkReporter(System.getProperty("user.dir")+"/reports/"+whichbrowser+"_reprot.html"));
+		sparkreport.get().config().setDocumentTitle("Automation-Test Lib");
+		sparkreport.get().config().setReportName("Testing- SecreSauce");
+		sparkreport.get().config().setTheme(Theme.DARK);
+		report.set( new ExtentReports());
+		report.get().attachReporter(sparkreport.get());
+		report.get().setSystemInfo("System", "SURI");
+		report.get().setSystemInfo("Device", "Windows");
+		report.get().setSystemInfo("browser", whichbrowser);
+		report.get().setSystemInfo("Version", "149");		
 		
 		
 	  }
 	
 	
 	public void onTestSuccess(ITestResult result) {
-		test = report.createTest(result.getName());
-		test.log(Status.PASS, "test has been passed " + " "+result.getTestClass().getName()+" "+result.getName());
+		test.set(report.get().createTest(result.getMethod().getMethodName()));
+		test.get().log(Status.PASS, "test has been passed " + " "+result.getTestClass().getName()+" "+result.getName());
 		System.out.println("taking screenshot");
-		File src =((TakesScreenshot)driverfactory.getdriver()).getScreenshotAs(OutputType.FILE);
+		File src = ((TakesScreenshot)driverfactory.getdriver().get()).getScreenshotAs(OutputType.FILE);
 		
 		try {
-			FileUtils.copyFile(src, new File(System.getProperty("user.dir")+"/screenshot/"+result.getName()+".png"));
+			FileUtils.copyFile(src, new File(System.getProperty("user.dir")+"/screenshot/"+driverfactory.gerBrowserName()+"/"+result.getName()+".png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		test.addScreenCaptureFromPath(System.getProperty("user.dir")+"/screenshot/"+result.getName()+".png");
+		test.get().addScreenCaptureFromPath(System.getProperty("user.dir")+"/screenshot/"+driverfactory.gerBrowserName()+"/"+result.getName()+".png");
 		
 	    // not implemented
 	  }
 
 	
 	public void onTestFailure(ITestResult result) {
-		test = report.createTest(result.getName());
-		test.log(Status.FAIL, "test case has been fialed" +result.getName()	);
-		File src = ((TakesScreenshot)driverfactory.getdriver()).getScreenshotAs(OutputType.FILE);
+		test.set( report.get().createTest(result.getMethod().getMethodName()));
+		test.get().log(Status.FAIL, "test case has been fialed" +result.getName()	);
+	//	File src = ((TakesScreenshot)driverfactory.getdriver()).getScreenshotAs(OutputType.FILE);
+		File src = ((TakesScreenshot)driverfactory.getdriver().get()).getScreenshotAs(OutputType.FILE);
+
 		try {
-			FileUtils.copyFile(src, new File(System.getProperty("user.dir")+"/screenshot/"+result.getName()+".png"));
+			FileUtils.copyFile(src, new File(System.getProperty("user.dir")+"/screenshot/"+driverfactory.gerBrowserName()+"/"+result.getName()+".png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		test.addScreenCaptureFromPath(System.getProperty("user.dir")+"/screenshot/"+result.getName()+".png");
+		test.get().addScreenCaptureFromPath(System.getProperty("user.dir")+"/screenshot/"+driverfactory.gerBrowserName()+"/"+result.getName()+".png");
 		
 	}
 	
@@ -174,8 +177,19 @@ public class implementationOfListeners implements ITestListener{
 	
 	public void onTestSkipped(ITestResult result) {
 		System.out.println("test skipped...");
-		test = report.createTest(result.getName());
-		test.log(Status.SKIP, "test case has skipped" +  result.getName());
+		test.set( report.get().createTest(result.getMethod().getMethodName()));
+		test.get().log(Status.SKIP, "test case has skipped" +  result.getName());
+		File src = ((TakesScreenshot)driverfactory.getdriver().get()).getScreenshotAs(OutputType.FILE);
+		
+
+		try {
+			FileUtils.copyFile(src, new File(System.getProperty("user.dir")+"/screenshot/"+driverfactory.gerBrowserName()+"/"+result.getName()+".png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		test.get().addScreenCaptureFromPath(System.getProperty("user.dir")+"/screenshot/"+driverfactory.gerBrowserName()+"/"+result.getName()+".png");
+		
 	}
 
 	
@@ -184,13 +198,15 @@ public class implementationOfListeners implements ITestListener{
 //		
 //	}
 	public void onTestStart(ITestResult result) {
-	System.out.print("this is onstart before exe the tests.... test satrted");
+	System.out.println("this is onstart before exe the tests.... test satrted");
 
 	  }
+	
+	
 
 	
 	public void onFinish(ITestContext context) {
-		report.flush();
+		report.get().flush();
 	}
 	
 }

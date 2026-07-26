@@ -13,12 +13,12 @@ import org.testng.Assert;
 
 public class cart {
 
-	WebDriver driver;
+	ThreadLocal<WebDriver> driver;
 	String k = "Sauce Labs Backpack";
 
 	// costuctor
 
-	public cart(WebDriver driver) {
+	public cart(ThreadLocal<WebDriver> driver) {
 		this.driver = driver;
 
 	}
@@ -37,13 +37,13 @@ public class cart {
 
 	public void clickCart() {
 		//explicitWait
-		WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
+		WebDriverWait wait = new WebDriverWait(driver.get(),Duration.ofSeconds(10));
 		wait.until(ExpectedConditions.visibilityOfElementLocated(cartdirection));
-		driver.findElement(cartdirection).click();
+		driver.get().findElement(cartdirection).click();
 	}
 
 	public List<WebElement> itemcanremover() {
-		List<WebElement> p = driver.findElements(item);
+		List<WebElement> p = driver.get().findElements(item);
 		return p;
 	}
 

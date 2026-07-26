@@ -28,7 +28,7 @@ import utilities.driverfactory;
 
 public class ProductTest {
 
-	WebDriver driver;
+	ThreadLocal<WebDriver> driver;
 
 	product p;
 
@@ -47,7 +47,8 @@ public class ProductTest {
 	void verifyProductPagetitle() throws InterruptedException {
 		p = new product(driver);
 
-		Thread.sleep(Duration.ofSeconds(3));
+		//Thread.sleep(Duration.ofSeconds(3));
+
 
 //    	WebDriverWait  wait = new WebDriverWait(driver, Duration.ofSeconds(5));
 //    	Wait.until(ExpectedConditions.visibilityOfElementLocated(null));
@@ -64,7 +65,7 @@ public class ProductTest {
 		cart c = new cart(driver);
 		c.clickCart();
 		p.backtoshoping();
-		Thread.sleep(Duration.ofSeconds(30));
+		//Thread.sleep(Duration.ofSeconds(30));
 		Assert.assertEquals(p.getitle(), "Products", "title passed ");
 
 	}

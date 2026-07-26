@@ -5,10 +5,10 @@ import org.openqa.selenium.WebDriver;
 
 public class loginPage {
 
-	WebDriver driver;
+	ThreadLocal	<WebDriver> driver;
 
 	// Constructor
-	public loginPage(WebDriver driver) {
+	public loginPage(ThreadLocal<WebDriver> driver) {
 		this.driver = driver;
 
 	}
@@ -23,9 +23,9 @@ public class loginPage {
 
 	// actionmethods
 	public void loginUser(String user, String passkey) {
-		driver.findElement(username).sendKeys(user);
-		driver.findElement(password).sendKeys(passkey);
-		driver.findElement(login).click();
+		driver.get().findElement(username).sendKeys(user);
+		driver.get().findElement(password).sendKeys(passkey);
+		driver.get().findElement(login).click();
 
 	}
 

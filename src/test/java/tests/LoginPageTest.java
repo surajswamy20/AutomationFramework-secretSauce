@@ -24,7 +24,7 @@ import utilities.driverfactory;
 
 public class LoginPageTest {
 
-	WebDriver driver;
+	ThreadLocal<WebDriver> driver;
 
 	@BeforeMethod(alwaysRun = true)
 	@Parameters({ "browser" })
@@ -41,7 +41,7 @@ public class LoginPageTest {
 		login.loginUser(username, password);
 		// driverfactory.clearalert();
 
-		Assert.assertEquals(driver.findElement(By.className("title")).getText(), "Products");
+		Assert.assertEquals(driver.get().findElement(By.className("title")).getText(), "Products");
 
 	}
 
@@ -51,7 +51,7 @@ public class LoginPageTest {
 		login.loginUser("username", "password");
 		// driverfactory.clearalert();
 
-		Assert.assertEquals(driver.findElement(By.className("error-message-container")).getText(),
+		Assert.assertEquals(driver.get().findElement(By.className("error-message-container")).getText(),
 				"Epic sadface: Username and password do not match any user in this service");
 	}
 
