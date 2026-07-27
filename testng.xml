@@ -4,11 +4,12 @@
 <suite name="Suite" parallel="tests" thread-count="5">
 
 	<listeners>
+		<listener class-name = "utilities.RetryListener"/>
 		<listener class-name="utilities.implementationOfListeners" />
 	</listeners>
 	
 
-	<test name="Test1">
+ 	<test name="Test1">
 
 		<parameter name="browser" value="chrome" />
 
@@ -31,17 +32,17 @@
 	<class name="tests.ProductTest"></class>		
 	</classes>
 	
-	</test>
+	</test>  
 	
 	
-	<test name = "test3">
+<!-- 	<test name = "test3">
 	<parameter name="browser" value="firefox"></parameter>
 	<classes>
 	<class name = "tests.cartTest"/>
 	<class name = "tests.LoginPageTest"/>
 			<class name="tests.ProductTest"></class>		
 	</classes>
-	</test>
+	</test> -->
 
 	<!-- <test name = "test2" > <parameter name ="browser" value = "firefox"/> 
 		<groups> <run > <include name = "sanity" /> </run> </groups> <classes> <class 
