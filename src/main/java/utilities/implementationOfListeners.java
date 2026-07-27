@@ -46,9 +46,7 @@ public class implementationOfListeners implements ITestListener {
 		test.set(report.get().createTest(result.getMethod().getMethodName()));
 		test.get().log(Status.PASS,
 				"test has been passed " + " " + result.getTestClass().getName() + " " + result.getName());
-		System.out.println("taking screenshot");
-
-		// not implemented
+		
 	}
 
 	public void onTestFailure(ITestResult result) {
@@ -56,6 +54,7 @@ public class implementationOfListeners implements ITestListener {
 		test.get().log(Status.FAIL, "test case has been fialed" + result.getName());
 		// File src =
 		// ((TakesScreenshot)driverfactory.getdriver()).getScreenshotAs(OutputType.FILE);
+		System.out.println("taking screenshot as the test has failed ");
 		File src = ((TakesScreenshot) driverfactory.getdriver().get()).getScreenshotAs(OutputType.FILE);
 
 		try {
@@ -74,6 +73,7 @@ public class implementationOfListeners implements ITestListener {
 		System.out.println("test skipped...");
 		test.set(report.get().createTest(result.getMethod().getMethodName()));
 		test.get().log(Status.SKIP, "test case has skipped" + result.getName());
+		System.out.println("taking screenshot as the test has skipped ");
 		File src = ((TakesScreenshot) driverfactory.getdriver().get()).getScreenshotAs(OutputType.FILE);
 
 		try {
