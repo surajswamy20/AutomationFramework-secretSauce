@@ -4,7 +4,7 @@ pipeline {
 	stages {
 		stage('Checkout'){
 			steps{
-				https://github.com/surajswamy20/AutomationFramework-secretSauce.git
+				git	'https://github.com/surajswamy20/AutomationFramework-secretSauce.git'
 			}
 		stage('Build'){
 			steps{
