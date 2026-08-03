@@ -1,258 +1,96 @@
-# Selenium Java Automation Framework
+# 🧪 Selenium Automation Framework — Sauce Demo
 
-## Overview
+![Java](https://img.shields.io/badge/Java-007396?style=flat&logo=openjdk&logoColor=white)
+![Selenium](https://img.shields.io/badge/Selenium-43B02A?style=flat&logo=selenium&logoColor=white)
+![TestNG](https://img.shields.io/badge/TestNG-FF6C37?style=flat)
+![Maven](https://img.shields.io/badge/Maven-C71A36?style=flat&logo=apachemaven&logoColor=white)
+![Jenkins](https://img.shields.io/badge/CI-Jenkins-D24939?style=flat&logo=jenkins&logoColor=white)
 
-This project is a robust Selenium Automation Framework developed using **Java, Selenium WebDriver, TestNG, Maven, and the Page Object Model (POM)**. The framework is designed to automate web application testing with a focus on maintainability, scalability, and ease of execution.
+A scalable, **CI/CD-ready Selenium + Java** test automation framework built from scratch using the **Page Object Model**, **TestNG**, and **Maven**. Designed for reuse, easy onboarding of new suites, and clear reporting.
 
-It follows industry-standard automation practices by separating test logic from page objects, supporting reusable components, and integrating reporting, version control, and Continuous Integration.
-
----
-
-# Application Under Test (AUT)
-
-The automation framework is developed and executed against the **SauceDemo** web application.
-
-**Application URL:**
-https://www.saucedemo.com/
-
-### Functional Modules Automated
-
-* Login
-* Product Listing
-* Product Selection
-* Shopping Cart
-* Checkout Flow
-* Logout (if implemented)
+**Application Under Test:** [saucedemo.com](https://www.saucedemo.com)
 
 ---
 
-## Tech Stack
+## ✨ Features
 
-* Java
-* Selenium WebDriver
-* TestNG
-* Maven
-* Page Object Model (POM)
-* Extent Reports
-* Apache Commons IO
-* Git & GitHub
-* Jenkins
-
----
-
-## Framework Features
-
-* Page Object Model (POM) Design Pattern
-* Selenium WebDriver Automation
-* TestNG Test Execution
-* Cross Browser Support (Chrome, Firefox, Edge)
-* Maven Dependency Management
-* Extent HTML Reporting
-* Screenshot Capture on Test Execution
-* TestNG Listener Implementation
-* Driver Factory for Browser Initialization
-* Reusable Utility Classes
-* Data-Driven Testing using TestNG DataProvider
-* Jenkins Continuous Integration
-* Git Version Control
-* Modular and Scalable Project Structure
+- **Page Object Model (POM)** — clean separation of page logic (`loginPage`, `product`, `cart`) from tests
+- **Reusable DriverFactory & Base layer** — add new tests without rewriting setup/teardown
+- **Cross-browser execution** — Chrome, Firefox, and Edge (separate reports per browser)
+- **Data-driven testing** — test data sourced from Excel (`data_from sheet/Workbook1.xlsx`)
+- **Custom TestNG Listeners** — automatic logging + **screenshot capture on failure**
+- **Retry mechanism** — `RetryAnalyser` + `RetryListener` auto-retry flaky tests
+- **Rich reporting** — HTML/Extent-style reports (`reports/`, `test-output/`)
+- **CI/CD ready** — `Jenkinsfile` for scheduled and on-demand runs
 
 ---
 
-## Project Structure
+## 🛠️ Tech Stack
 
-```text
-test1
-│
-├── src
-│   ├── main
-│   │   └── java
-│   │       ├── base
-│   │       ├── pages
-│   │       └── utilities
-│   │
-│   └── test
-│       └── java
-│           └── tests
-│
-├── reports
-├── screenshots
-├── testng.xml
-├── pom.xml
-└── README.md
+| Area | Tools |
+|------|-------|
+| Language | Java |
+| Automation | Selenium WebDriver |
+| Test Runner | TestNG |
+| Build | Maven |
+| Design | Page Object Model, DriverFactory, BaseTest |
+| Reporting | Extent / TestNG HTML reports, screenshots |
+| CI/CD | Jenkins |
+| Data | Apache POI (Excel) |
+
+---
+
+## 📁 Project Structure
+
+```
+src/main/java/
+├── base/          # resorces, setup_teardown_utility  (config + base setup/teardown)
+├── pages/         # loginPage, product, cart          (Page Objects)
+└── utilities/     # driverfactory, implementationOfListeners,
+                   # RetryAnalyser, RetryListener       (framework core)
+src/test/java/
+└── tests/         # LoginPageTest, ProductTest, cartTest
+data_from sheet/   # Workbook1.xlsx                     (data-driven inputs)
+reports/           # chrome / firefox / edge run reports
+testng.xml         # suite definition
+pom.xml            # dependencies & build
+Jenkinsfile        # CI pipeline
 ```
 
 ---
 
-## Design Pattern
+## 🚀 Getting Started
 
-The framework follows the **Page Object Model (POM)** design pattern.
-
-Each web page is represented as a separate Java class containing:
-
-* Web Elements (Locators)
-* Page Actions
-* Navigation Methods
-
-### Benefits
-
-* High Code Reusability
-* Easy Maintenance
-* Better Readability
-* Separation of Test Logic and UI Elements
-
----
-
-## Reporting
-
-The framework generates interactive HTML reports using **Extent Reports**.
-
-The report includes:
-
-* Test Name
-* Pass/Fail Status
-* Execution Time
-* Exception Details
-* Test Logs
-* Screenshots (where implemented)
-
-Reports are automatically generated after every execution.
-
----
-
-## Screenshot Capture
-
-The framework captures screenshots using Selenium's **TakesScreenshot** interface.
-
-Screenshots are generated during execution and stored inside the project directory for easier debugging and reporting.
-
----
-
-## Test Execution
-
-Tests can be executed using:
-
-### TestNG
+**Prerequisites:** Java JDK 11+, Maven, Chrome/Firefox/Edge
 
 ```bash
-Run As → TestNG Test
-```
+# clone
+git clone https://github.com/surajswamy20/AutomationFramework-secretSauce.git
+cd AutomationFramework-secretSauce
 
-### Maven
-
-```bash
+# run the full suite
 mvn clean test
+
+# run a specific TestNG suite
+mvn clean test -DsuiteXmlFile=testng.xml
 ```
 
-### Jenkins
-
-```text
-Build Now
-```
+Reports are generated under `reports/` and `test-output/` after each run.
 
 ---
 
-## Continuous Integration (CI)
-
-The framework is integrated with Jenkins for automated test execution.
-
-### CI Workflow
-
-```text
-Developer / Tester
-        │
-        ▼
-Git Commit
-        │
-        ▼
-Git Push
-        │
-        ▼
-GitHub Repository
-        │
-        ▼
-Jenkins
-        │
-        ▼
-Clone Latest Code
-        │
-        ▼
-Maven Build
-        │
-        ▼
-Execute TestNG Test Suite
-        │
-        ▼
-Generate Extent Report
-        │
-        ▼
-Build Success / Failure
-```
+## 📊 Reports
+- Per-browser HTML reports in `reports/` (`chrome_reprot.html`, `firefox_reprot.html`, `edge_reprot.html`)
+- TestNG output + `emailable-report.html` in `test-output/`
+- Failure screenshots captured automatically via the custom listener
 
 ---
 
-## Version Control
-
-Git is used for source code management.
-
-Typical workflow:
-
-```bash
-git add .
-git commit -m "Commit Message"
-git push origin main
-```
+## 🔁 CI/CD
+The included `Jenkinsfile` runs `mvn clean test` on a Jenkins agent, so regression feedback reaches the team the same day. Extendable to GitHub Actions.
 
 ---
 
-## Current Framework Components
-
-* DriverFactory
-* Base Utility Classes
-* Page Object Model (POM)
-* Test Classes
-* TestNG Listeners
-* Extent Report Integration
-* Screenshot Utility
-* Maven Build Configuration
-* Jenkins Integration
-
----
-
-## Future Enhancements
-
-* Config.properties Support
-* ConfigReader Utility
-* Log4j2 Logging
-* Browser Selection using Jenkins Parameters
-* Parallel Test Execution
-* Selenium Grid Integration
-* Docker Support
-* Retry Analyzer
-* Email Notifications
-* Slack Notifications
-* Database Validation
-* API Automation Integration
-* GitHub Webhook Trigger
-* Jenkins Pipeline (Jenkinsfile)
-
----
-
-## Author
-
-**Suraj Basavaraj Swamy**
-
-**QA Automation Engineer**
-
-### Technical Skills
-
-* Selenium WebDriver
-* Java
-* TestNG
-* Maven
-* Jenkins
-* Git & GitHub
-* Page Object Model (POM)
-* Manual Testing
-* Automation Testing
-* CI/CD
+## 👤 Author
+**Suraj Basavaraj Swamy** — QA Automation Engineer / SDET
+[LinkedIn](https://linkedin.com/in/suraj-swamy-254292217) · soorajswaamy@gmail.com
